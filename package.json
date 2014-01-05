@@ -1,0 +1,42 @@
+{
+    "name": "recolor",
+    "version": "0.0.1",
+    "description": "terminal color formatter, supported nesting styles.",
+    "author": {
+        "name": "Firede",
+        "email": "firede@firede.us"
+    },
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha"
+    },
+    "engines": {
+        "node": ">=0.8.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/firede/recolor.git"
+    },
+    "keywords": [
+        "terminal",
+        "color",
+        "recolor",
+        "format",
+        "nesting",
+        "styles",
+        "cli",
+        "chalk"
+    ],
+    "dependencies": {
+        "ansi-styles": "~1.0.0"
+    },
+    "devDependencies": {
+        "chalk": "~0.4.0",
+        "mocha": "~1.16.2"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/firede/recolor/issues"
+    },
+    "homepage": "https://github.com/firede/recolor"
+}
