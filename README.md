@@ -11,7 +11,7 @@ Why you need `recolor` ?
 
 See the screenshot:
 
-![screenshot](https://f.cloud.github.com/assets/157338/1850309/7747a310-76cd-11e3-8ce4-83b771b08831.png)
+![screenshot](https://f.cloud.github.com/assets/157338/1850376/e8af5258-76cf-11e3-805d-b48dd4636acd.png)
 
 ## Installation
 
