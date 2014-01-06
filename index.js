@@ -1,5 +1,8 @@
 /**
  * recolor
+ * 
+ * Copyright (c) 2014 Firede. (MIT Licensed)
+ * https://github.com/firede/recolor
  */
 
 /**
