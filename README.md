@@ -33,6 +33,6 @@ var target = recolor(source);
 
 MIT &copy; [Firede](https://github.com/firede)
 
----
+===
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/firede/recolor/trend.png)](https://bitdeli.com/free "Bitdeli Badge")

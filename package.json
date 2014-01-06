@@ -1,6 +1,6 @@
 {
     "name": "recolor",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "terminal color formatter, supported nesting styles.",
     "author": {
         "name": "Firede",
