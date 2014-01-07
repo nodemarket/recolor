@@ -26,6 +26,8 @@ var rules = {
     italic_close: /^\x1b\[23m$/,
     underline_open: /^\x1b\[4m$/,
     underline_close: /^\x1b\[24m$/,
+    blink_open: /^\x1b\[5m$/,
+    blink_close: /^\x1b\[25m$/,
     inverse_open: /^\x1b\[7m$/,
     inverse_close: /^\x1b\[27m$/,
     strikethrough_open: /^\x1b\[9m$/,
@@ -180,6 +182,24 @@ function lexer (text) {
             tokens.push({
                 node: 'close',
                 type: 'underline',
+                raw: cap[0]
+            });
+            continue;
+        }
+
+        if (cap = rules.blink_open.exec(item)) {
+            tokens.push({
+                node: 'open',
+                type: 'blink',
+                raw: cap[0]
+            });
+            continue;
+        }
+
+        if (cap = rules.blink_close.exec(item)) {
+            tokens.push({
+                node: 'close',
+                type: 'blink',
                 raw: cap[0]
             });
             continue;
