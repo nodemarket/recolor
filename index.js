@@ -31,7 +31,9 @@ var rules = {
     inverse_open: /^\x1b\[7m$/,
     inverse_close: /^\x1b\[27m$/,
     strikethrough_open: /^\x1b\[9m$/,
-    strikethrough_close: /^\x1b\[29m$/
+    strikethrough_close: /^\x1b\[29m$/,
+    conceal_open: /^\x1b\[8m$/,
+    conceal_close: /^\x1b\[28m$/
 };
 
 /**
@@ -236,6 +238,24 @@ function lexer (text) {
             tokens.push({
                 node: 'close',
                 type: 'strikethrough',
+                raw: cap[0]
+            });
+            continue;
+        }
+
+        if (cap = rules.conceal_open.exec(item)) {
+            tokens.push({
+                node: 'open',
+                type: 'conceal',
+                raw: cap[0]
+            });
+            continue;
+        }
+
+        if (cap = rules.conceal_close.exec(item)) {
+            tokens.push({
+                node: 'close',
+                type: 'conceal',
                 raw: cap[0]
             });
             continue;
