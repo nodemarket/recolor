@@ -15,9 +15,9 @@ var rules = {
 
     reset: /^\x1b\[0m$/,
 
-    color_open: /^\x1b\[(3[0-7]|90)m$/,
+    color_open: /^\x1b\[(3[0-7]|9[0-7])m$/,
     color_close: /^\x1b\[39m$/,
-    bg_color_open: /^\x1b\[(4[0-7])m$/,
+    bg_color_open: /^\x1b\[(4[0-7]|10[0-7])m$/,
     bg_color_close: /^\x1b\[49m$/,
 
     bold_open: /^\x1b\[1m$/,
