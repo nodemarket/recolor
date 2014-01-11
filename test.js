@@ -34,4 +34,12 @@ describe('recolor', function () {
 
         assert.equal(target, expect);
     });
+
+    it('should work when using blink', function () {
+        var source = 'foo\x1b[5mbar\x1b[25mbaz';
+        var target = recolor(source);
+        var expect = 'foo\x1b[5mbar\x1b[0mbaz';
+
+        assert.equal(target, expect);
+    });
 });

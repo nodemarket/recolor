@@ -6,34 +6,40 @@
  */
 
 /**
+ * Codes
+ */
+var codes = {
+    bold: [ 1, 22 ],
+    italic: [ 3, 23 ],
+    underline: [ 4, 24 ],
+    blink: [ 5, 25 ],
+    inverse: [ 7, 27 ],
+    conceal: [ 8, 28 ],
+    strikethrough: [ 9, 29 ],
+
+    color: [
+        function (n) {
+            return (n >= 30 && n <= 37) || (n >= 90 && n <= 97)
+        },
+        39
+    ],
+
+    bg_color: [
+        function (n) {
+            return (n >= 40 && n <= 47) || (n >= 100 && n <= 107)
+        },
+        49
+    ]
+};
+
+/**
  * Rules
  * 
  * @namespace
  */
 var rules = {
     global: /(\x1b\[\d{1,3}m)/,
-
-    reset: /^\x1b\[0m$/,
-
-    color_open: /^\x1b\[(3[0-7]|9[0-7])m$/,
-    color_close: /^\x1b\[39m$/,
-    bg_color_open: /^\x1b\[(4[0-7]|10[0-7])m$/,
-    bg_color_close: /^\x1b\[49m$/,
-
-    bold_open: /^\x1b\[1m$/,
-    bold_close: /^\x1b\[22m$/,
-    italic_open: /^\x1b\[3m$/,
-    italic_close: /^\x1b\[23m$/,
-    underline_open: /^\x1b\[4m$/,
-    underline_close: /^\x1b\[24m$/,
-    blink_open: /^\x1b\[5m$/,
-    blink_close: /^\x1b\[25m$/,
-    inverse_open: /^\x1b\[7m$/,
-    inverse_close: /^\x1b\[27m$/,
-    strikethrough_open: /^\x1b\[9m$/,
-    strikethrough_close: /^\x1b\[29m$/,
-    conceal_open: /^\x1b\[8m$/,
-    conceal_close: /^\x1b\[28m$/
+    item: /^\x1b\[(\d{1,3})m$/
 };
 
 /**
@@ -97,182 +103,45 @@ function lexer (text) {
             continue;
         }
 
-        if (cap = rules.color_open.exec(item)) {
-            tokens.push({
-                node: 'open',
-                type: 'color',
-                value: cap[1],
-                raw: cap[0]
-            });
-            continue;
-        }
+        if (cap = rules.item.exec(item)) {
+            var curCode = parseInt(cap[1], 10);
 
-        if (cap = rules.color_close.exec(item)) {
-            tokens.push({
-                node: 'close',
-                type: 'color',
-                raw: cap[0]
-            });
-            continue;
-        }
+            Object.keys(codes).some(function(key) {
+                var values = codes[key];
+                var valOpen = values[0];
+                var valClose = values[1];
+                var node;
 
-        if (cap = rules.bg_color_open.exec(item)) {
-            tokens.push({
-                node: 'open',
-                type: 'bg_color',
-                value: cap[1],
-                raw: cap[0]
-            });
-            continue;
-        }
+                if (curCode === 0) {
+                    node = 'reset';
+                }
+                else if (typeof valOpen === 'number' && valOpen === curCode) {
+                    node = 'open';
+                }
+                else if (typeof valOpen === 'function' && valOpen(curCode)) {
+                    node = 'open';
+                }
+                else if (valClose === curCode) {
+                    node = 'close';
+                }
 
-        if (cap = rules.bg_color_close.exec(item)) {
-            tokens.push({
-                node: 'close',
-                type: 'bg_color',
-                raw: cap[0]
+                if (node) {
+                    tokens.push({
+                        node: node,
+                        type: key,
+                        value: curCode,
+                        raw: cap[0]
+                    });
+                    return true;
+                }
             });
-            continue;
         }
-
-        if (cap = rules.bold_open.exec(item)) {
+        else {
             tokens.push({
-                node: 'open',
-                type: 'bold',
-                raw: cap[0]
+                node: 'text',
+                raw: item
             });
-            continue;
         }
-
-        if (cap = rules.bold_close.exec(item)) {
-            tokens.push({
-                node: 'close',
-                type: 'bold',
-                raw: cap[0]
-            });
-            continue;
-        }
-
-        if (cap = rules.italic_open.exec(item)) {
-            tokens.push({
-                node: 'open',
-                type: 'italic',
-                raw: cap[0]
-            });
-            continue;
-        }
-
-        if (cap = rules.italic_close.exec(item)) {
-            tokens.push({
-                node: 'close',
-                type: 'italic',
-                raw: cap[0]
-            });
-            continue;
-        }
-
-        if (cap = rules.underline_open.exec(item)) {
-            tokens.push({
-                node: 'open',
-                type: 'underline',
-                raw: cap[0]
-            });
-            continue;
-        }
-
-        if (cap = rules.underline_close.exec(item)) {
-            tokens.push({
-                node: 'close',
-                type: 'underline',
-                raw: cap[0]
-            });
-            continue;
-        }
-
-        if (cap = rules.blink_open.exec(item)) {
-            tokens.push({
-                node: 'open',
-                type: 'blink',
-                raw: cap[0]
-            });
-            continue;
-        }
-
-        if (cap = rules.blink_close.exec(item)) {
-            tokens.push({
-                node: 'close',
-                type: 'blink',
-                raw: cap[0]
-            });
-            continue;
-        }
-
-        if (cap = rules.inverse_open.exec(item)) {
-            tokens.push({
-                node: 'open',
-                type: 'inverse',
-                raw: cap[0]
-            });
-            continue;
-        }
-
-        if (cap = rules.inverse_close.exec(item)) {
-            tokens.push({
-                node: 'close',
-                type: 'inverse',
-                raw: cap[0]
-            });
-            continue;
-        }
-
-        if (cap = rules.strikethrough_open.exec(item)) {
-            tokens.push({
-                node: 'open',
-                type: 'strikethrough',
-                raw: cap[0]
-            });
-            continue;
-        }
-
-        if (cap = rules.strikethrough_close.exec(item)) {
-            tokens.push({
-                node: 'close',
-                type: 'strikethrough',
-                raw: cap[0]
-            });
-            continue;
-        }
-
-        if (cap = rules.conceal_open.exec(item)) {
-            tokens.push({
-                node: 'open',
-                type: 'conceal',
-                raw: cap[0]
-            });
-            continue;
-        }
-
-        if (cap = rules.conceal_close.exec(item)) {
-            tokens.push({
-                node: 'close',
-                type: 'conceal',
-                raw: cap[0]
-            });
-            continue;
-        }
-
-        if (cap = rules.reset.exec(item)) {
-            tokens.push({
-                node: 'reset',
-                raw: cap[0]
-            });
-            continue;
-        }
-
-        tokens.push({
-            node: 'text',
-            raw: item
-        });
     }
 
     return tokens;
