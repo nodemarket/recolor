@@ -1,6 +1,6 @@
 /**
  * recolor
- * 
+ *
  * Copyright (c) 2014 Firede. (MIT Licensed)
  * https://github.com/nodemarket/recolor
  */
@@ -34,7 +34,7 @@ var codes = {
 
 /**
  * Rules
- * 
+ *
  * @namespace
  */
 var rules = {
@@ -44,7 +44,7 @@ var rules = {
 
 /**
  * Style Stack
- * 
+ *
  * @constructor
  */
 function StyleStack() {
@@ -86,24 +86,23 @@ StyleStack.prototype.getNesting = function () {
 
 /**
  * Lexer
- * 
+ *
  * @param {string} text
  * @return {Array}
  */
-function lexer (text) {
+function lexer(text) {
     var source = text.split(rules.global);
     var tokens = [];
-    var cap;
-    var item;
 
     for (var i = 0, len = source.length; i < len; i++) {
-        item = source[i];
+        var item = source[i];
 
         if (!item) {
             continue;
         }
 
-        if (cap = rules.item.exec(item)) {
+        var cap = rules.item.exec(item);
+        if (cap) {
             var curCode = parseInt(cap[1], 10);
 
             Object.keys(codes).some(function(key) {
@@ -149,7 +148,7 @@ function lexer (text) {
 
 /**
  * format text by style tokens
- * 
+ *
  * @param {string} text
  * @param {Array} tokens
  * @return {string}
@@ -171,17 +170,16 @@ function formatText(text, tokens) {
 
 /**
  * Parser
- * 
+ *
  * @param {Array} tokens
  * @return {string}
  */
-function parser (tokens) {
+function parser(tokens) {
     var output = [];
     var stack = new StyleStack();
-    var token;
 
     for (var i = 0, len = tokens.length; i < len; i++) {
-        token = tokens[i];
+        var token = tokens[i];
 
         switch (token.node) {
             case 'text':
@@ -214,11 +212,11 @@ function parser (tokens) {
 
 /**
  * recolor
- * 
+ *
  * @param {string} text
  * @return {string}
  */
-function recolor (text) {
+function recolor(text) {
     var tokens = lexer(text);
     var output = parser(tokens);
 
