@@ -1,4 +1,4 @@
-recolor [![NPM version](https://badge.fury.io/js/recolor.png)](https://npmjs.org/package/recolor) [![Build Status](https://travis-ci.org/nodemarket/recolor.png)](https://travis-ci.org/nodemarket/recolor) [![DevDependencies Status](https://david-dm.org/nodemarket/recolor/dev-status.png)](https://david-dm.org/nodemarket/recolor#info=devDependencies)
+recolor [![NPM version](http://img.shields.io/npm/v/recolor.svg?style=flat-square)](https://npmjs.org/package/recolor) [![Build Status](http://img.shields.io/travis/nodemarket/recolor.svg?style=flat-square)](https://travis-ci.org/nodemarket/recolor) [![DevDependencies Status](http://img.shields.io/david/dev/nodemarket/recolor.svg?style=flat-square)](https://david-dm.org/nodemarket/recolor#info=devDependencies)
 ===
 
 `recolor` is a terminal color formatter, supported nesting styles.
