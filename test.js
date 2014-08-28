@@ -22,7 +22,7 @@ describe('recolor', function () {
     it('should work when using chalk', function () {
         var source = chalk.blue('blue' + chalk.bgWhite.black('black') + 'blue');
         var target = recolor(source);
-        var expect = '\x1b[34mblue\x1b[0m\x1b[30m\x1b[47mblack\x1b[0m\x1b[34mblue\x1b[0m'
+        var expect = '\x1b[34mblue\x1b[0m\x1b[30m\x1b[47mblack\x1b[0m\x1b[34mblue\x1b[0m';
 
         assert.equal(target, expect);
     });

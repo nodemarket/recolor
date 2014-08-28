@@ -2,31 +2,31 @@
  * recolor
  * 
  * Copyright (c) 2014 Firede. (MIT Licensed)
- * https://github.com/firede/recolor
+ * https://github.com/nodemarket/recolor
  */
 
 /**
  * Codes
  */
 var codes = {
-    bold: [ 1, 22 ],
-    italic: [ 3, 23 ],
-    underline: [ 4, 24 ],
-    blink: [ 5, 25 ],
-    inverse: [ 7, 27 ],
-    conceal: [ 8, 28 ],
-    strikethrough: [ 9, 29 ],
+    bold: [1, 22],
+    italic: [3, 23],
+    underline: [4, 24],
+    blink: [5, 25],
+    inverse: [7, 27],
+    conceal: [8, 28],
+    strikethrough: [9, 29],
 
     color: [
         function (n) {
-            return (n >= 30 && n <= 37) || (n >= 90 && n <= 97)
+            return (n >= 30 && n <= 37) || (n >= 90 && n <= 97);
         },
         39
     ],
 
-    bg_color: [
+    bgColor: [
         function (n) {
-            return (n >= 40 && n <= 47) || (n >= 100 && n <= 107)
+            return (n >= 40 && n <= 47) || (n >= 100 && n <= 107);
         },
         49
     ]
